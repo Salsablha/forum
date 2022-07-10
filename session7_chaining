@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-#define size 250
+#define size 20
 
 struct node
 {
