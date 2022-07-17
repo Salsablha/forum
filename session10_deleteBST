@@ -1,0 +1,122 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct data{
+	int number;
+	data *left, *right;
+}*root;
+
+void push(data **current, int number){
+	if((*current)==NULL){
+		(*current) = (struct data *)malloc(sizeof data);
+		(*current)->number=number;
+		(*current)->left = (*current)->right = NULL;
+	}else if(number < (*current)->number){
+		push(&(*current)->left, number);
+	}else if(number >= (*current)->number){
+		push(&(*current)->right, number);
+	}
+}
+
+void preOrder(data **current){
+	if((*current)!=NULL){
+		printf("%d -> ", (*current)->number);
+		preOrder(&(*current)->left);
+		preOrder(&(*current)->right);
+	}
+}
+
+void inOrder(data **current){
+	if((*current)!=NULL){
+		inOrder(&(*current)->left);
+		printf("%d -> ", (*current)->number);
+		inOrder(&(*current)->right);
+	}
+}
+
+void postOrder(data **current){
+	if((*current)!=NULL){
+		postOrder(&(*current)->left);
+		postOrder(&(*current)->right);
+		printf("%d -> ", (*current)->number);
+	}
+}
+
+void search(data **current, int number){
+	if((*current)!=NULL){
+		if(number<(*current)->number){
+			search(&(*current)->left,number);
+		}else if(number>(*current)->number){
+			search(&(*current)->right,number);
+		}else{
+			printf("Found : %d", (*current)->number);
+		}
+	}else{
+		printf("Not Found.");
+	}
+}
+
+struct node *delete_node(strct node *root, int deleteData)
+{
+    if(root == NULL)
+    return;
+    
+    struct node *cursor;
+    if(deleteData . root->data)
+        root->right = delete_node(root->right, deleteData);
+    else if(deleteData < root->data)
+        root->left = delete_node(root->left, deleteData);
+    else
+    {
+        if(root->left == NULL)
+        {
+            corsor = root->right;
+            free(root);
+            root = cursor;
+        }
+        else if (root->right == NULL)
+        {
+            cursor = root->left;
+            free(root);
+            root = cursor;
+        }
+        else
+        {
+            cursor = root->right;
+            while(cursor->left != NULL)
+            {
+                cusor = cursor->left;
+            }
+            root-.data = cursor->data;
+            root right = delete_node(root->right, cursor->data);
+        }
+        
+    }
+    return root; 
+};
+
+void main(){
+	push(&root, 13);
+	push(&root, 27);
+	push(&root, 93);
+	push(&root, 67);
+	push(&root, 1);
+  push(&root, 90);
+  push(&root, 37);
+  push(&root, 40);
+  push(&root, 62);
+  push(&root, 102);
+  push(&root, 53);
+  push(&root, 72);
+  push(&root, 34);
+  push(&root, 21);
+  push(&root, 20);
+	inOrder(&root);
+	printf("\n");
+	preOrder(&root);
+	printf("\n");
+	postOrder(&root);
+	printf("\n");
+	search(&root,91);
+	getchar();
+}
